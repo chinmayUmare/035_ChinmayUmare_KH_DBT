@@ -1,0 +1,319 @@
+
+
+Section I								
+
+1.	Create table DEPT with the following structure:-
+DEPTNO			int(2)
+DNAME			varchar(15)
+LOC				varchar(10)
+
+
+ANS--->	
+
+CREATE DATABASE D;
+USE D;
+CREATE TABLE DEPT
+(
+DEPTNO	int,
+DNAME	varchar(15),
+LOC		varchar(10)
+);
+DROP TABLE DEPT;
+
+INSERT INTO DEPT VALUES
+(10, 'ACCOUNTING', 'NEW YORK'),
+(20, 'RESEARCH', 'DALLAS'),
+(30, 'SALES', 'CHICAGO'),
+(40, 'OPERATIONS', 'BOSTON');
+
+SELECT * FROM DEPT;
+
+O/P-->
+
+	DEPTNO	DNAME	LOC
+
+	10	ACCOUNTING	NEW YORK
+	20	RESEARCH	DALLAS
+	30	SALES	CHICAGO
+	40	OPERATIONS	BOSTON
+		
+
+
+
+
+
+
+Insert the following rows into the DEPT table:-
+10	ACCOUNTING	NEW YORK
+20	RESEARCH		DALLAS
+30	SALES		CHICAGO
+40	OPERATIONS	BOSTON
+
+2.	Create table EMP with the following structure:-
+EMPNO			int(4)
+ENAME			varchar(10)
+JOB				varchar(9)
+HIREDATE			date
+SAL				float(7,2)
+COMM			float(7,2)
+DEPTNO			int(2)
+
+Insert the following rows into the EMP table:-
+7839	KING		MANAGER	1991-11-17	5000	NULL	10
+7698	BLAKE	CLERK	1981-05-01	2850	NULL	30
+7782	CLARK	MANAGER	1981-06-09	2450	NULL	10
+7566	JONES	CLERK	1981-04-02	2975	NULL 20
+7654	MARTIN	SALESMAN	1981-09-28	1250	1400	30
+7499	ALLEN	SALESMAN	1981-02-20	1600	300	30
+
+
+
+ANS --->
+
+
+
+CREATE TABLE EMP
+(
+EMPNO	int,
+ENAME	varchar(10),
+JOB		varchar(9),
+HIREDATE	date,
+SAL		float,
+COMM	float,
+DEPTNO	int
+);
+DROP TABLE EMP;
+
+Insert INTO EMP VALUES
+(7839,	'KING',	'MANAGER',	'1991-11-17',	5000,	NULL,	10),
+(7698,	'BLAKE',	'CLERK',	'1981-05-01',	2850,	NULL,	30),
+(7782,	'CLARK',	'MANAGER',	'1981-06-09',	2450,	NULL,	10),
+(7566,	'JONES',	'CLERK',	'1981-04-02',	2975,	NULL, 20),
+(7654,	'MARTIN',	'SALESMAN',	'1981-09-28',	1250,	1400,	30),
+(7499,	'ALLEN',	'SALESMAN',	'1981-02-20',	1600,	300,	30);
+
+SELECT * FROM EMP;
+
+
+
+O/P--->
+
+
+	EMPNO	ENAME	JOB	HIREDATE	SAL	  COMM  	DEPTNO
+
+	7839	KING	MANAGER	1991-11-17	     5000		10
+	7698	BLAKE	CLERK	       1981-05-01	      2850		30
+	7782	CLARK	MANAGER	1981-06-09	     2450		10
+	7566	JONES	CLERK	     1981-04-02	      2975		20
+	7654	MARTIN	SALESMAN	1981-09-28	1250	1400	30
+	7499	ALLEN	SALESMAN	1981-02-20	1600	300	30
+
+
+Write SELECT statements to achieve the following:-
+3.	Display all the employees where SAL between 2500 and 5000 (inclusive of both).
+
+ANS--->
+
+SELECT * FROM EMP WHERE SAL BETWEEN 2500 AND 5000;
+
+
+O/P---->
+
+	EMPNO	ENAME	JOB	HIREDATE	SAL	COMM	DEPTNO
+
+	7839	KING	MANAGER	1991-11-17	5000		10
+	7698	BLAKE	CLERK	1981-05-01	2850		30
+	7566	JONES	CLERK	1981-04-02	2975		20
+
+
+
+4.	Display all the ENAMEs in descending order of ENAME.
+
+
+ANS--->
+
+SELECT ENAME FROM EMP 
+ORDER BY ENAME DESC;
+
+O/P--->
+
+	ENAME
+
+	MARTIN
+	KING
+	JONES
+	CLARK
+	BLAKE
+	ALLEN
+
+
+5.	Display all the JOBs in lowercase.
+
+ANS--->
+
+SELECT LOWER(JOB) FROM EMP;
+
+O/P--->
+
+	LOWER(JOB)
+
+	manager
+	clerk
+	manager
+	clerk
+	salesman
+	salesman
+
+
+6.	Display the ENAMEs and the lengths of the ENAMEs.
+
+ANS--->
+
+
+SELECT ENAME, LENGTH(ENAME) FROM EMP;
+
+O/P-->
+
+	ENAME	LENGTH(ENAME)
+	KING	4
+	BLAKE	5
+	CLARK	5
+	JONES	5
+	MARTIN	6
+	ALLEN	5
+
+7.	Display the DEPTNO and the count of employees who belong to that DEPTNO .
+
+ANS---->
+
+SELECT DEPTNO, COUNT(DEPTNO) "EMP_COUNT" FROM EMP
+GROUP BY DEPTNO;
+
+
+O/P--->
+
+	DEPTNO 	EMP_COUNT
+
+	10	                    2
+	30				3
+	20				1
+
+8.	Display the DNAMEs and the ENAMEs who belong to that DNAME.
+
+ANS--->
+
+
+SELECT DNAME, ENAME FROM EMP,DEPT
+WHERE EMP.DEPTNO=DEPT.DEPTNO
+ORDER BY DNAME;
+
+
+O/P--->
+
+
+	DNAME	          ENAME
+
+	ACCOUNTING	KING
+	ACCOUNTING	CLARK
+	RESEARCH	    JONES
+	SALES	           BLAKE
+	SALES	          MARTIN
+	SALES	           ALLEN
+
+
+9.	Display the position at which the string ‘AR’ occurs in the ename.
+
+ANS--->
+
+
+SELECT ENAME FROM EMP 
+WHERE ENAME LIKE '%AR%';
+
+
+O/P--->
+
+	ENAME
+
+	CLARK
+	MARTIN
+
+
+10.	Display the HRA for each employee given that HRA is 20% of SAL.
+
+
+ANS --->
+
+SELECT ENAME, SAL, SAL*0.2 "HRA" FROM EMP;
+
+
+O/P--->
+
+
+	ENAME	SAL	      HRA
+
+	KING	5000	1000
+	BLAKE	2850	570
+	CLARK	2450	490
+	JONES	2975	595
+	MARTIN	1250	250
+	ALLEN	1600	320
+
+
+
+
+
+Section II								
+
+1.	Write a stored procedure by the name of PROC1 that accepts two varchar strings as parameters.
+ Your procedure should then determine if the first varchar string exists inside the varchar string. 
+For example, if string1 = ‘DAC’ and string2 = ‘CDAC, then string1 exists inside string2.  
+The stored procedure should insert the appropriate message into a suitable TEMPP output table. 
+Calling program for the stored procedure need not be written.
+
+
+ANS --->
+
+
+CREATE TABLE TEMPP
+(
+	C VARCHAR(20),
+    D VARCHAR(20),
+    RESULT VARCHAR(15)
+);
+
+
+DELIMITER //
+CREATE PROCEDURE PROC1(C VARCHAR(20), D VARCHAR(20))
+BEGIN
+		DECLARE X INT;
+		SET X = INSTR(C, D);
+        IF X > 0 THEN
+					INSERT INTO TEMPP (STR_1, STR_2, RESULT) VALUES
+                    (C, D, 'CHINMAY');
+		ELSE 
+			        INSERT INTO TEMPP (STR_1, STR_2, RESULT) VALUES
+                    (C, D, 'CHINMAY UMARE');
+		END IF;
+	END; //
+    DELIMITER ;
+
+2.	Create a stored function by the name of FUNC1 to take three parameters, the sides of a triangle.
+ The function should return a Boolean value:- TRUE if the triangle is valid, FALSE otherwise.
+ A triangle is valid if the length of each side is less than the sum of the lengths of the other two sides.
+ Check if the dimensions entered can form a valid triangle. Calling program for the stored function need not be written.
+
+
+
+ANS---->
+
+DELIMITER //
+CREATE FUNCTION FUNC1(X INT, Y INT, Z INT)
+RETURNS BOOLEAN
+DETERMINISTIC
+BEGIN
+IF(X+Y>Z AND Y+Z>X AND Z+X>Y) THEN RETURN TRUE;
+ELSE
+RETURN FALSE;
+END IF;
+END; //
+DELIMITER ;
